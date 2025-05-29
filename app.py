@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 VidDigest - YouTube Video Summarizer
-A modern web application that transforms YouTube videos into concise summaries
+Fixed static files for Railway deployment
 """
+
 import os
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
@@ -36,7 +37,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Static files and templates
+# Static files - FIXED for Railway
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -110,11 +111,31 @@ async def health_check():
         "ai_available": summarizer.is_model_loaded()
     }
 
+# Test static files endpoint
+@app.get("/test-static")
+async def test_static():
+    """Test if static files are accessible"""
+    import os
+    static_files = []
+    try:
+        for root, dirs, files in os.walk("static"):
+            for file in files:
+                static_files.append(os.path.join(root, file))
+    except:
+        pass
+    
+    return {
+        "static_files_found": static_files,
+        "css_exists": os.path.exists("static/css/style.css"),
+        "js_exists": os.path.exists("static/js/app.js")
+    }
+
+# Railway-compatible startup
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
         port=port,
-        reload=False  # Disable reload in production
+        reload=False
     )

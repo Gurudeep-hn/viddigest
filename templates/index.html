@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VidDigest - YouTube Video Summarizer</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
-    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+    <!-- Fixed static file reference for Railway -->
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -81,5 +81,8 @@
             <p>Powered by AI • Built with ❤️ for efficient learning</p>
         </div>
     </div>
+
+    <!-- Fixed static file reference for Railway -->
+    <script src="/static/js/app.js"></script>
 </body>
 </html>
