@@ -8,7 +8,7 @@
 
 A modern web application that uses AI to generate intelligent summaries of YouTube videos, complete with key takeaways and timestamps.
 
-![VidDigest Screenshot](https://via.placeholder.com/800x400/667eea/ffffff?text=VidDigest+Screenshot)
+![VidDigest Screenshot](screenshots/app-demo.png)
 
 ## ✨ Features
 
