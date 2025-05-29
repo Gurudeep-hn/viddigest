@@ -76,6 +76,8 @@ A modern web application that uses AI to generate intelligent summaries of YouTu
    ```
 
 ## 📋 Usage
+Online (Easiest)
+Visit https://web-production-a084.up.railway.app and start analyzing videos immediately!
 
 1. **Enter a YouTube URL** in the input field
 2. **Click "Analyze Video"**
