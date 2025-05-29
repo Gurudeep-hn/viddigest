@@ -1,36 +1,39 @@
 """
-Application configuration settings
+Application configuration settings - Railway compatible
 """
 
 import os
-from functools import lru_cache
-from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
 
-class Settings(BaseSettings):
+# Load environment variables
+load_dotenv()
+
+class Settings:
     """Application settings"""
     
     # API Keys
-    GROQ_API_KEY: str = ""
-    YOUTUBE_API_KEY: str = ""
+    GROQ_API_KEY: str = os.getenv('GROQ_API_KEY', '')
+    YOUTUBE_API_KEY: str = os.getenv('YOUTUBE_API_KEY', '')
     
     # AI Configuration
-    GROQ_MODEL: str = "llama3-8b-8192"
-    MAX_TOKENS: int = 512
-    TEMPERATURE: float = 0.3
+    GROQ_MODEL: str = os.getenv('GROQ_MODEL', 'llama3-8b-8192')
+    MAX_TOKENS: int = int(os.getenv('MAX_TOKENS', '512'))
+    TEMPERATURE: float = float(os.getenv('TEMPERATURE', '0.3'))
     
     # Server Configuration
-    HOST: str = "0.0.0.0"
-    PORT: int = 8000
-    DEBUG: bool = False
+    HOST: str = os.getenv('HOST', '0.0.0.0')
+    PORT: int = int(os.getenv('PORT', '8000'))
+    DEBUG: bool = os.getenv('DEBUG', 'False').lower() == 'true'
     
     # Application Limits
-    MAX_TRANSCRIPT_LENGTH: int = 10000
-    
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    MAX_TRANSCRIPT_LENGTH: int = int(os.getenv('MAX_TRANSCRIPT_LENGTH', '10000'))
 
-@lru_cache()
+# Create global settings instance
+_settings = None
+
 def get_settings() -> Settings:
     """Get cached settings instance"""
-    return Settings()
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings
