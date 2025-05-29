@@ -3,7 +3,7 @@
 VidDigest - YouTube Video Summarizer
 A modern web application that transforms YouTube videos into concise summaries
 """
-
+import os
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
@@ -111,9 +111,10 @@ async def health_check():
     }
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "app:app",
-        host=settings.HOST,
-        port=settings.PORT,
-        reload=settings.DEBUG
+        host="0.0.0.0",
+        port=port,
+        reload=False  # Disable reload in production
     )
