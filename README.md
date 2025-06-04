@@ -24,7 +24,6 @@ A modern web application that uses AI to generate intelligent summaries of YouTu
 
 ### Prerequisites
 - Python 3.8+
-- Internet connection
 
 ### Installation
 
